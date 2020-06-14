@@ -1,0 +1,53 @@
+﻿<Window x:Class="CardDealer.View.CardTable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Cards" Height="835" Width="715" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="2" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="8,2,0,0" FontSize="16" FontWeight="Bold" Text="{Binding Path=CardDeck.Cards.Count, StringFormat='Card Deck [{0} card(s)]'}"/>
+                <ListBox Grid.Row="1" Margin="2" FontSize="14" ItemsSource="{Binding CardDeck.Cards}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="-2"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </Grid>
+            <Grid Grid.Column="1" Margin="2" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="8,2,0,0" FontSize="16" FontWeight="Bold" Text="{Binding Path=CardDeck.DrawnCards.Count, StringFormat='Drawn Cards [{0} card(s)]'}"/>
+                <ListBox Grid.Row="1" Margin="2" FontSize="14" ItemsSource="{Binding CardDeck.DrawnCards}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="-2"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Margin="10" Padding="10,5" Command="{Binding ShuffleCommand}">Shuffle</Button>
+            <Button Margin="10" Padding="10,5" Command="{Binding DrawCommand}">Draw</Button>
+            <CheckBox Margin="10" Padding="10,5" VerticalContentAlignment="Center" IsChecked="{Binding Path=CardDeck.UseJokers, Mode=TwoWay}">Use Jokers? (Shuffle to refresh)</CheckBox>
+        </StackPanel>
+    </Grid>
+</Window>
