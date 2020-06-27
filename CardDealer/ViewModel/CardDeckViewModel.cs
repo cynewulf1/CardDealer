@@ -1,5 +1,7 @@
 ﻿using CardDealer.Model;
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,37 +13,40 @@ namespace CardDealer.ViewModel
         // Error handling also done from here for this simple example.
 
         #region Private Variables        
-        private ICommand _shuffleCommand, _drawCommand;
+        private ICommand _command;
         #endregion
 
         #region Public Properties
 
         public CardDeck CardDeck { get; set; }
 
-        public ICommand ShuffleCommand
+        public ICommand Command
         {
             get
             {
-                return _shuffleCommand ?? (_shuffleCommand = new RelayCommand(x => {
+                return _command ?? (_command = new RelayCommand<string>(x =>
+                {
                     try
                     {
-                        CardDeck.Shuffle();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"{ex.Message}\r\n{ex.StackTrace}", "Card Dealer");
-                    }
-                } ));
-            }
-        }
-        public ICommand DrawCommand
-        {
-            get
-            {
-                return _drawCommand ?? (_drawCommand = new RelayCommand(x => {
-                    try
-                    {
-                        CardDeck.DrawCard();
+                            // Handle the command process
+                            switch (x)
+                        {
+                            case "Shuffle":
+                                {
+                                    if (CardDeck != null) CardDeck.BeginShuffle();
+                                    break;
+                                }
+                            case "Draw":
+                                {
+                                    if (CardDeck!= null) CardDeck.BeginDrawCard();
+                                    break;
+                                }
+                            default:
+                                {
+                                    MessageBox.Show($"Invalid Command: {x}");
+                                    break;
+                                }
+                        }
                     }
                     catch (Exception ex)
                     {

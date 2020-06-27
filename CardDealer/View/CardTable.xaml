@@ -45,8 +45,8 @@
             </Grid>
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Margin="10" Padding="10,5" Command="{Binding ShuffleCommand}">Shuffle</Button>
-            <Button Margin="10" Padding="10,5" Command="{Binding DrawCommand}">Draw</Button>
+            <Button Margin="10" Padding="10,5" Command="{Binding Command}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}">Shuffle</Button>
+            <Button Margin="10" Padding="10,5" Command="{Binding Command}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}">Draw</Button>
             <CheckBox Margin="10" Padding="10,5" VerticalContentAlignment="Center" IsChecked="{Binding Path=CardDeck.UseJokers, Mode=TwoWay}">Use Jokers? (Shuffle to refresh)</CheckBox>
         </StackPanel>
     </Grid>

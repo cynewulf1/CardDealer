@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using CardDealer.ViewModel;
 
 namespace CardDealer
@@ -10,11 +11,18 @@ namespace CardDealer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            View.CardTable cardTable = new View.CardTable();
-            CardDeckViewModel vm = new CardDeckViewModel();
-            cardTable.DataContext = vm;
-            cardTable.Show();
+            try
+            {
+                base.OnStartup(e);
+                View.CardTable cardTable = new View.CardTable();
+                CardDeckViewModel vm = new CardDeckViewModel();
+                cardTable.DataContext = vm;
+                cardTable.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
